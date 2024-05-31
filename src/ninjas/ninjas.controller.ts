@@ -9,6 +9,7 @@ import {
   Body,
   NotFoundException,
   ParseIntPipe,
+  ValidationPipe,
 } from '@nestjs/common';
 import { CreateNinjaDto } from './dto/create-ninja.dto';
 import { NinjasService } from './ninjas.service';
@@ -32,7 +33,7 @@ export class NinjasController {
   }
   // POST /ninjas
   @Post()
-  createNinja(@Body() createNinjaDTO: CreateNinjaDto) {
+  createNinja(@Body(new ValidationPipe()) createNinjaDTO: CreateNinjaDto) {
     return this.ninjasService.createNinja(createNinjaDTO);
   }
   // PUT /ninjas/:id => {}
