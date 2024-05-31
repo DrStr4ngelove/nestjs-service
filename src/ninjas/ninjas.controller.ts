@@ -8,6 +8,7 @@ import {
   Query,
   Body,
   NotFoundException,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { CreateNinjaDto } from './dto/create-ninja.dto';
 import { NinjasService } from './ninjas.service';
@@ -22,9 +23,9 @@ export class NinjasController {
   }
   // GET /ninjas/:id => {}
   @Get(':id')
-  getOneNinja(@Param('id') id: string) {
+  getOneNinja(@Param('id', ParseIntPipe) id: number) {
     try {
-      return this.ninjasService.getOneNinja(+id);
+      return this.ninjasService.getOneNinja(id);
     } catch (e) {
       throw new NotFoundException(e.message);
     }
@@ -36,14 +37,17 @@ export class NinjasController {
   }
   // PUT /ninjas/:id => {}
   @Put(':id')
-  updateNinja(@Param('id') id: string, @Body() updateNinjaDTO: CreateNinjaDto) {
-    return this.ninjasService.updateNinja(+id, updateNinjaDTO);
+  updateNinja(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateNinjaDTO: CreateNinjaDto,
+  ) {
+    return this.ninjasService.updateNinja(id, updateNinjaDTO);
   }
   // DELETE /ninjas/:id
   @Delete(':id')
-  deleteNinja(@Param('id') id: string) {
+  deleteNinja(@Param('id', ParseIntPipe) id: number) {
     try {
-      return this.ninjasService.deleteNinja(+id);
+      return this.ninjasService.deleteNinja(id);
     } catch (e) {
       throw new NotFoundException(e.message);
     }
