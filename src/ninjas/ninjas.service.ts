@@ -16,7 +16,7 @@ export class NinjasService {
 
   getOneNinja(id: number) {
     const ninja = this.ninjas.find((ninja) => ninja.id === +id);
-    if (!ninja) throw new Error('getOneNinja: Ninja not found');
+    if (!ninja) throw new Error('Ninja not found');
     return ninja;
   }
 
@@ -34,7 +34,7 @@ export class NinjasService {
 
   deleteNinja(id: number) {
     const index = this.ninjas.findIndex((ninja) => ninja.id === id);
-    if (index === -1) throw new Error('deleteNinja: Ninja not found');
+    if (index === -1) throw new Error('Ninja not found');
     this.ninjas.splice(index, 1);
     return { id };
   }
