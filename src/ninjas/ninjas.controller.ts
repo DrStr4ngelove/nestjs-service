@@ -9,34 +9,34 @@ import {
   Body,
 } from '@nestjs/common';
 import { CreateNinjaDto } from './dto/create-ninja.dto';
+import { NinjasService } from './ninjas.service';
 
 @Controller('ninjas')
 export class NinjasController {
-  // GET /ninjas?type=fast => []
+  constructor(private readonly ninjasService: NinjasService) {}
+  // GET /ninjas?weapon=katanana => []
   @Get()
-  getNinjas(@Query('type') type: string) {
-    return [{ type }];
+  getNinjas(@Query('weapon') weapon: string) {
+    return this.ninjasService.getNinjas(weapon);
   }
   // GET /ninjas/:id => {}
   @Get(':id')
   getOneNinja(@Param('id') id: string) {
-    return { id };
+    return this.ninjasService.getOneNinja(+id);
   }
   // POST /ninjas
   @Post()
   createNinja(@Body() createNinjaDTO: CreateNinjaDto) {
-    return {
-      name: createNinjaDTO.name,
-    };
+    return this.ninjasService.createNinja(createNinjaDTO);
   }
   // PUT /ninjas/:id => {}
   @Put(':id')
   updateNinja(@Param('id') id: string, @Body() updateNinjaDTO: CreateNinjaDto) {
-    return { id, name: updateNinjaDTO.name };
+    return this.ninjasService.updateNinja(+id, updateNinjaDTO);
   }
   // DELETE /ninjas/:id
   @Delete(':id')
   deleteNinja(@Param('id') id: string) {
-    return { id };
+    return this.ninjasService.deleteNinja(+id);
   }
 }
