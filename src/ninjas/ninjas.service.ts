@@ -3,11 +3,7 @@ import { CreateNinjaDto } from './dto/create-ninja.dto';
 
 @Injectable()
 export class NinjasService {
-  private ninjas = [
-    { id: 0, name: 'Naruto', weapon: 'Kunai' },
-    { id: 1, name: 'Sasuke', weapon: 'Katana' },
-    { id: 2, name: 'Sakura', weapon: 'Fists' },
-  ];
+  private ninjas = [];
 
   getNinjas(weapon?: string) {
     if (weapon) {
